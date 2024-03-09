@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Dashboard</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background-image: url('https://t3.ftcdn.net/jpg/06/06/54/92/360_F_606549277_BMzgu4QoNfqHDkmUgngJrFHuxZXvkS7d.jpg'); /* Replace with your gym background image */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                color: #fff;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Header Styles */
+            header {
+                background-color: rgba(0.8, 0.8, 0.8, 0.8); /* Adjust transparency here */
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            header h1 {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+
+            /* Member Widget Styles */
+            .member-widget {
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                display: flex;
+                align-items: center;
+            }
+
+            .member-widget1 {
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                display: flex;
+                align-items: center;
+            }
+
+            .member-name {
+                margin-right: 10px;
+                font-weight: bold;
+            }
+
+            .smButton {
+                background-color: #003366;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 8px 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .smButton:hover {
+                background-color: #002050;
+            }
+            .smButton1 {
+                background-color: #003366;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 8px 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .smButton1:hover {
+                background-color: #8FCE00;
+            }
+
+
+        .logout-btn {
+            background-color: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #F81201;
+        }
+
+
+            /* Container Styles */
+            .container {
+                display: flex;
+                padding: 20px;
+            }
+
+            .section {
+                flex: 1;
+                margin-right: 20px;
+            }
+
+            /* Card Styles */
+            .card {
+                background-color: rgba(0, 0, 0, 0.8);
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .card:hover {
+                background: linear-gradient(155deg, rgba(0,0,0, 0.8) , rgba(0, 123, 255, 1) );
+                opacity: 1;
+                transition: opacity 0.3s ease;
+                transform: translateY(-10px);
+            }
+            .card h2 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            .card p {
+                margin-bottom: 10px;
+                line-height: 1.6;
+            }
+            .card strong {
+                margin-bottom: 10px;
+                line-height: 1.5;
+            }
+
+            /* Form Styles */
+            form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            label {
+                font-weight: bold;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+            }
+
+            input[type="text"],
+            input[type="date"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: none;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                background-color: #0056b3;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                text-transform: uppercase;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #003366;
+            }
+
+            /* Hover Effects */
+            input[type="submit"]:hover,
+            input[type="submit"]:focus {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+            select { padding: 5px; border-radius: 5px; }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+            .dialog-box {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+                z-index: 1001;
+            }
+
+            .dialog-box h2 {
+                margin-top: 0;
+            }
+            .dialog-box p {
+                color: #666;
+            }
+            .dialog-box button {
+                padding: 8px 16px;
+                margin-top: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            th { padding: 20px; text-align: center; }
+            tr { text-align: center; }
+        </style>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/common.js') }}"></script>
+        <script>
+            var membershipList = [ {% for x in membershipsAvailable %}"{{ x[3] }}$", {% endfor %} ];
+            function setMShipPrice(price)  {
+                document.getElementById('membershipPrice').value = price;
+            }
+            function logout()  {
+                alert("Logging out...");
+                goToPage("{{ url_for('index') }}");
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('.member-widget1 form').addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    if (confirm('Are you sure, You want to Clear Data of the Gym?')) event.target.submit();
+                    else return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>Admin Dashboard</h1>
+            <div class="member-widget1">
+                <form action="{{ url_for('killDatabase') }}" method="POST">
+                    <input type="hidden" name="redirectTo" value="index" />
+                    <button type="submit" class="logout-btn">Kill Database</button>
+                </form>
+            </div>
+            <div class="member-widget">
+                <span class="member-name">{{ adminDetails[1] }}</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </header>
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <h2>Admin Details</h2>
+                    <ul>
+                        <strong>Name:</strong> {{ adminDetails[1] }}<br>
+                        <strong>Email:</strong> {{ adminDetails[2] }}<br>
+                    </ul>
+                </div>
+                {% if memberDetails or trainerDetails %}
+                <div class="card">
+                    <h2>Delete User</h2>
+                    <form id="deleteUserForm" action="{{ url_for('removeUser') }}" method="POST">
+                        <input type="hidden" name="redirectTo" value="adminPage" />
+                        <div>
+                            <strong>Select User:</strong>
+                            <select id="userId" name="userId">
+                            {% for member in memberDetails %}
+                                <option value="Members {{member[0]}}">
+                                    Member: {{member[1]}} at {{member[2]}}
+                                </option>
+                            {% endfor %}
+                            {% for trainer in trainerDetails %}
+                                <option value="Trainers {{trainer[0]}}">
+                                    Trainer: {{trainer[1]}} at {{trainer[2]}}
+                                </option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div style="margin-top:20px;">
+                            <input type="submit" value="Delete User" class="smButton1">
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+                <div class="card">
+                    <h2>All Trainers</h2>
+                    {% if trainerDetails %}
+                        {% for trainer in trainerDetails %}
+                            <strong>Name:</strong> {{ trainer[1] }}<br>
+                            <strong>Email:</strong> {{ trainer[2] }}<br>
+                            <strong>Working From:</strong> {{ trainer[4] }}<br>
+                            <strong>Specialities:</strong>
+                            {% for special in trainer[5] %}
+                                {{ special[1] }},
+                            {% endfor %}
+                        <br><br>
+                        {% endfor %}
+                    {% else %}
+                        <p>No trainer in Gym</p>
+                    {% endif %}
+                </div>
+
+                {% if paymentDetails %}
+                <div class="card">
+                    <h2>Payment Details</h2>
+                    <table>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Time</th>
+                            <th>Payed By</th>
+                            <th>Money Payed</th>
+                        </tr>
+
+                        {% for payments in paymentDetails %}
+                        <tr>
+                            <td>{{payments[0]}}</td>
+                            <td>{{payments[3]}}</td>
+                            <td>{{payments[1]}}</td>
+                            <td>{{payments[2]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="section">
+                {% if memberDetails and trainerDetails %}
+                <div class="card">
+                    <h2>Assign Trainer</h2>
+                    <form id="assignTrainerForm" action="{{ url_for('assignTrainer') }}" method="POST">
+                        <input type="hidden" name="redirectTo" value="adminPage" />
+                        <div>
+                            <strong>Select Member:</strong>
+                            <select name="userId">
+                            {% for member in memberDetails %}
+                                <option value="{{member[0]}}">
+                                    {{member[1]}} at {{member[2]}}
+                                </option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div style="margin-top:15px;">
+                            <strong>Select Trainer:</strong>
+                            <select name="trainerId">
+                            {% for trainer in trainerDetails %}
+                                <option value="{{trainer[0]}}">
+                                    {{trainer[1]}} at {{trainer[2]}}
+                                </option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div style="margin-top:20px;">
+                            <input type="submit" value="Assign Trainer" class="smButton">
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+                <div class="card">
+                    <h2>All Members</h2>
+                    {% if memberDetails %}
+                        {% for member in memberDetails %}
+                            <strong>Name:</strong> {{ member[1] }}<br>
+                            <strong>Email:</strong> {{ member[2] }}<br>
+                            {% if member[7] %} <strong>Trainer:</strong> {{ member[7]}}<br>
+                            {% else %} <strong>Trainer:</strong> Not Assigned<br>
+                            {% endif %}
+                            <strong>Joined On:</strong> {{ member[5] }}<br>
+                            <strong>Subscription Ends At:</strong> {{ member[6] }}<br>
+                        <br>
+                        {% endfor %}
+                    {% else %}
+                        <p>No Member in Gym</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div id="alertBox">
+                {% if alertTitle %}
+                    <div id="overlay" class="overlay" style="display: block;"></div>
+                    <div id="alert-dialog" class="dialog-box" style="display: block;">
+                        <h2 style="color:black;">{{ alertTitle }}</h2>
+                        {% if alertMessage %}
+                            <div><b style="color:black;">{{ alertMessage }}</b></div>
+                        {% endif %}
+                        <button onclick="goToPage('{{ url_for('memberPage') }}')">Close</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <script> setMShipPrice(membershipList[0]); </script>
+    </body>
+</html>
