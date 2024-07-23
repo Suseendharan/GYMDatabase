@@ -50,6 +50,3 @@ The Gym Management System is a web application developed using Flask, SQLAlchemy
 3. Commit your changes (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a new Pull Request.
-
-## License
-This project is licensed under the MIT License.
